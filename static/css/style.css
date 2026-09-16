@@ -1,0 +1,14 @@
+.active-nav {
+  background-color: #f3e8ff !important;
+  color: #5C3B89 !important;
+}
+
+.active-mood {
+  background-color: #f3e8ff !important;
+  border-color: #9333ea !important;
+}
+
+html {
+  scroll-behavior: smooth;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+}
