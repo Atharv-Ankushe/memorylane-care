@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Memory Lane — Dementia & Alzheimer's Cognitive Companion</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
+  <link rel="stylesheet" href="/static/css/style.css" />
+</head>
+<body class="bg-[#F8F7FC] text-slate-800 antialiased min-h-screen flex flex-col select-none">
+
+  <!-- Top Global Header -->
+  <header class="h-16 bg-white border-b border-purple-100 flex items-center justify-between px-6 sticky top-0 z-30 shadow-xs">
+    <div class="flex items-center space-x-3">
+      <div class="w-10 h-10 rounded-2xl bg-[#5C3B89] text-white flex items-center justify-center text-lg shadow-sm">
+        <i class="fa-solid fa-brain"></i>
+      </div>
+      <div>
+        <h1 class="font-black text-lg text-slate-900 tracking-tight leading-none">Memory Lane</h1>
+        <span class="text-[11px] font-semibold text-[#5C3B89]">Care & Vitality · Cognitive Companion</span>
+      </div>
+    </div>
+
+    <!-- Center Mode Switch -->
+    <div class="flex items-center bg-purple-50 p-1 rounded-xl border border-purple-100">
+      <button class="bg-[#5C3B89] text-white px-4 py-1.5 rounded-lg text-xs font-bold shadow-xs">
+        <i class="fa-solid fa-user mr-1.5"></i> Patient App
+      </button>
+      <button class="text-slate-600 hover:text-slate-900 px-4 py-1.5 rounded-lg text-xs font-semibold">
+        <i class="fa-solid fa-user-doctor mr-1.5"></i> Caregiver Dashboard
+      </button>
+    </div>
+
+    <!-- Accessibility Tools -->
+    <div class="flex items-center space-x-3">
+      <button id="fontSizeBtn" class="bg-white border border-purple-200 text-[#5C3B89] hover:bg-purple-50 px-3 py-1.5 rounded-xl text-xs font-bold shadow-xs transition">
+        A+ / A-
+      </button>
+      <button id="voiceToggle" class="bg-purple-100 text-[#5C3B89] hover:bg-purple-200 p-2 rounded-xl transition" title="Toggle Narration">
+        <i class="fa-solid fa-volume-high text-sm" id="voiceIcon"></i>
+      </button>
+      <div class="flex items-center space-x-1.5 text-xs text-emerald-700 bg-emerald-50 px-3 py-1.5 rounded-xl border border-emerald-200 font-semibold">
+        <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
+        <span>Simulate connection: synced</span>
+      </div>
+    </div>
+  </header>
+
+  <!-- Content Layout -->
+  <div class="flex-1 flex overflow-hidden">
+    
+    <!-- Left Navigation Sidebar -->
+    <aside class="w-64 bg-white border-r border-purple-100 p-5 flex flex-col justify-between hidden md:flex">
+      <nav class="space-y-1.5">
+        <button onclick="switchTab('home')" class="nav-item active-nav w-full flex items-center space-x-3 px-4 py-3 rounded-2xl text-xs font-bold transition text-left" id="navHome">
+          <i class="fa-solid fa-house text-sm"></i>
+          <span>Home Overview</span>
+        </button>
+        <button onclick="switchTab('activities')" class="nav-item w-full flex items-center space-x-3 px-4 py-3 rounded-2xl text-xs font-semibold text-slate-600 hover:bg-purple-50 transition text-left" id="navActivities">
+          <i class="fa-solid fa-shapes text-sm"></i>
+          <span>Cognitive Activities</span>
+        </button>
+        <button onclick="switchTab('reminders')" class="nav-item w-full flex items-center space-x-3 px-4 py-3 rounded-2xl text-xs font-semibold text-slate-600 hover:bg-purple-50 transition text-left" id="navReminders">
+          <i class="fa-solid fa-bell text-sm"></i>
+          <span>Daily Routine</span>
+        </button>
+      </nav>
+
+      <div class="bg-purple-50/80 rounded-3xl p-4 border border-purple-100 text-center">
+        <button onclick="triggerVoiceAssistant()" class="w-12 h-12 rounded-full bg-[#5C3B89] hover:bg-[#482b6f] text-white flex items-center justify-center mx-auto shadow-md transition transform hover:scale-105">
+          <i class="fa-solid fa-microphone text-base"></i>
+        </button>
+        <h4 class="text-xs font-bold text-slate-900 mt-2">Talk to Assistant</h4>
+        <p class="text-[11px] text-slate-500 mt-0.5 leading-snug">Tap to ask for guidance</p>
+      </div>
+    </aside>
+
+    <!-- Center Workspace -->
+    <main class="flex-1 overflow-y-auto p-6 lg:p-8" id="mainContent">
+      
+      <!-- VIEW 1: HOME -->
+      <div id="viewHome" class="space-y-6 max-w-5xl mx-auto">
+        <div class="bg-gradient-to-r from-purple-900 to-[#5C3B89] text-white rounded-3xl p-8 flex flex-col md:flex-row justify-between items-start md:items-center gap-4 shadow-lg shadow-purple-900/10">
+          <div>
+            <span class="px-3 py-1 bg-white/20 text-white rounded-full text-xs font-bold uppercase tracking-wider">Cognitive Companion</span>
+            <h2 class="text-3xl font-black mt-2 tracking-tight">Good Morning, Ama</h2>
+            <p class="text-purple-100 text-sm mt-1">Ready to explore family memories and gentle exercises today?</p>
+          </div>
+          <button onclick="speakText('Wonderful effort today Ama! Your family loves you deeply.')" class="bg-white text-[#5C3B89] hover:bg-purple-50 px-5 py-2.5 rounded-2xl font-bold text-xs shadow-md transition flex items-center space-x-2">
+            <i class="fa-solid fa-heart text-rose-500"></i>
+            <span>Praise</span>
+          </button>
+        </div>
+
+        <!-- Mood Track -->
+        <div class="bg-white rounded-3xl p-6 border border-purple-100 shadow-xs">
+          <div class="flex justify-between items-center mb-3">
+            <h3 class="text-sm font-bold text-slate-900">How are you feeling today?</h3>
+            <span id="savedIndicator" class="text-xs font-bold text-emerald-600 bg-emerald-50 px-3 py-1 rounded-full hidden">Saved ✓</span>
+          </div>
+          <div class="grid grid-cols-2 sm:grid-cols-4 gap-3">
+            <button onclick="setMood('Peaceful', '🌸')" class="mood-btn flex items-center space-x-3 p-3.5 rounded-2xl border border-slate-100 hover:border-purple-300 transition">
+              <span class="text-2xl">🌸</span>
+              <div class="text-left"><h4 class="text-xs font-bold">Peaceful</h4></div>
+            </button>
+            <button onclick="setMood('Relaxed', '🛋️')" class="mood-btn active-mood flex items-center space-x-3 p-3.5 rounded-2xl border border-purple-400 bg-purple-50 transition">
+              <span class="text-2xl">🛋️</span>
+              <div class="text-left"><h4 class="text-xs font-bold text-[#5C3B89]">Relaxed</h4></div>
+            </button>
+            <button onclick="setMood('Sharp', '💡')" class="mood-btn flex items-center space-x-3 p-3.5 rounded-2xl border border-slate-100 hover:border-purple-300 transition">
+              <span class="text-2xl">💡</span>
+              <div class="text-left"><h4 class="text-xs font-bold">Sharp</h4></div>
+            </button>
+            <button onclick="setMood('Resting', '🛏️')" class="mood-btn flex items-center space-x-3 p-3.5 rounded-2xl border border-slate-100 hover:border-purple-300 transition">
+              <span class="text-2xl">🛏️</span>
+              <div class="text-left"><h4 class="text-xs font-bold">Resting</h4></div>
+            </button>
+          </div>
+          <div id="moodMessage" class="mt-3 text-xs text-purple-800 bg-purple-50 p-2.5 rounded-xl font-medium">
+            Ama is having a relaxing, cozy day.
+          </div>
+        </div>
+
+        <!-- Featured Exercises -->
+        <div>
+          <div class="flex justify-between items-center mb-4">
+            <h3 class="text-base font-black text-slate-900">Therapy & Memory Workouts</h3>
+            <button onclick="switchTab('activities')" class="text-xs font-bold text-purple-700 hover:underline">All Games →</button>
+          </div>
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+            <div class="bg-white rounded-3xl p-5 border border-purple-100 shadow-xs flex flex-col justify-between">
+              <div>
+                <span class="text-[9px] font-bold px-2 py-0.5 rounded-full bg-emerald-50 text-emerald-600">Level 1</span>
+                <h4 class="text-sm font-bold text-slate-900 mt-2">Reconstruct My Home</h4>
+                <p class="text-xs text-slate-500 mt-1">Explore familiar rooms & household memories</p>
+              </div>
+              <button onclick="startHomeGame()" class="mt-4 w-full bg-[#5C3B89] hover:bg-[#482b6f] text-white py-2 rounded-xl text-xs font-bold transition">Play</button>
+            </div>
+
+            <div class="bg-white rounded-3xl p-5 border border-purple-100 shadow-xs flex flex-col justify-between">
+              <div>
+                <span class="text-[9px] font-bold px-2 py-0.5 rounded-full bg-emerald-50 text-emerald-600">Level 2</span>
+                <h4 class="text-sm font-bold text-slate-900 mt-2">Who is this?</h4>
+                <p class="text-xs text-slate-500 mt-1">Recognize family members & relationships</p>
+              </div>
+              <button onclick="startWhoGame()" class="mt-4 w-full bg-[#5C3B89] hover:bg-[#482b6f] text-white py-2 rounded-xl text-xs font-bold transition">Play</button>
+            </div>
+
+            <div class="bg-white rounded-3xl p-5 border border-purple-100 shadow-xs flex flex-col justify-between">
+              <div>
+                <span class="text-[9px] font-bold px-2 py-0.5 rounded-full bg-emerald-50 text-emerald-600">Level 1</span>
+                <h4 class="text-sm font-bold text-slate-900 mt-2">Complete My Story</h4>
+                <p class="text-xs text-slate-500 mt-1">Fill in cherished family memories</p>
+              </div>
+              <button onclick="startStoryGame()" class="mt-4 w-full bg-[#5C3B89] hover:bg-[#482b6f] text-white py-2 rounded-xl text-xs font-bold transition">Play</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- VIEW 2: ALL ACTIVITIES -->
+      <div id="viewActivities" class="space-y-6 max-w-5xl mx-auto hidden">
+        <div class="flex items-center space-x-3">
+          <button onclick="switchTab('home')" class="text-slate-400 hover:text-slate-700 p-2 text-sm"><i class="fa-solid fa-arrow-left"></i></button>
+          <div>
+            <h2 class="text-2xl font-black text-slate-900">Choose an Activity</h2>
+            <p class="text-xs text-slate-500">Therapeutic cognitive drills designed for gentle memory retention.</p>
+          </div>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <div class="bg-white rounded-3xl p-6 border border-purple-100 shadow-xs flex items-center justify-between">
+            <div class="flex items-center space-x-4">
+              <div class="w-12 h-12 rounded-2xl bg-indigo-50 text-indigo-600 flex items-center justify-center text-xl">
+                <i class="fa-solid fa-house"></i>
+              </div>
+              <div>
+                <span class="text-[9px] font-bold px-2 py-0.5 rounded-full bg-emerald-50 text-emerald-600">Level 1</span>
+                <h3 class="text-sm font-bold text-slate-900 mt-1">Reconstruct My Home</h3>
+                <p class="text-xs text-slate-500">Explore familiar rooms & household memories</p>
+              </div>
+            </div>
+            <button onclick="startHomeGame()" class="bg-[#5C3B89] text-white text-xs font-bold px-5 py-2.5 rounded-xl">Play</button>
+          </div>
+
+          <div class="bg-white rounded-3xl p-6 border border-purple-100 shadow-xs flex items-center justify-between">
+            <div class="flex items-center space-x-4">
+              <div class="w-12 h-12 rounded-2xl bg-purple-50 text-[#5C3B89] flex items-center justify-center text-xl">
+                <i class="fa-solid fa-user-group"></i>
+              </div>
+              <div>
+                <span class="text-[9px] font-bold px-2 py-0.5 rounded-full bg-emerald-50 text-emerald-600">Level 2</span>
+                <h3 class="text-sm font-bold text-slate-900 mt-1">Who is this?</h3>
+                <p class="text-xs text-slate-500">Recognize family members & relationships</p>
+              </div>
+            </div>
+            <button onclick="startWhoGame()" class="bg-[#5C3B89] text-white text-xs font-bold px-5 py-2.5 rounded-xl">Play</button>
+          </div>
+
+          <div class="bg-white rounded-3xl p-6 border border-purple-100 shadow-xs flex items-center justify-between">
+            <div class="flex items-center space-x-4">
+              <div class="w-12 h-12 rounded-2xl bg-rose-50 text-rose-500 flex items-center justify-center text-xl">
+                <i class="fa-solid fa-book-open"></i>
+              </div>
+              <div>
+                <span class="text-[9px] font-bold px-2 py-0.5 rounded-full bg-emerald-50 text-emerald-600">Level 1</span>
+                <h3 class="text-sm font-bold text-slate-900 mt-1">Complete My Story</h3>
+                <p class="text-xs text-slate-500">Fill in cherished family memories</p>
+              </div>
+            </div>
+            <button onclick="startStoryGame()" class="bg-[#5C3B89] text-white text-xs font-bold px-5 py-2.5 rounded-xl">Play</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- VIEW 3: GAME 1 (WHO IS THIS) -->
+      <div id="viewWhoGame" class="space-y-6 max-w-xl mx-auto hidden">
+        <div class="flex items-center justify-between">
+          <button onclick="switchTab('activities')" class="text-slate-500 hover:text-slate-800 text-xs font-bold flex items-center gap-1.5">
+            <i class="fa-solid fa-arrow-left"></i> Exit Game
+          </button>
+          <span class="text-xs font-bold text-purple-700 bg-purple-50 px-3 py-1 rounded-full" id="whoProgress">1 / 5</span>
+        </div>
+
+        <div class="bg-white rounded-3xl p-8 border border-purple-100 shadow-sm text-center flex flex-col items-center">
+          <div id="personEmoji" class="w-28 h-28 rounded-full bg-purple-50 flex items-center justify-center text-6xl mb-4 shadow-inner">👧</div>
+          <h3 id="personName" class="text-2xl font-black text-slate-900">Priya</h3>
+          
+          <button onclick="repeatQuestion()" class="mt-3 text-purple-700 bg-purple-50 hover:bg-purple-100 px-4 py-1.5 rounded-full text-xs font-semibold flex items-center gap-2 transition">
+            <i class="fa-solid fa-volume-high text-xs"></i>
+            <span id="personQuestion">"Who is Priya to you?"</span>
+          </button>
+
+          <div id="whoFeedbackBox" class="mt-4 w-full p-3 rounded-2xl text-xs font-semibold hidden"></div>
+        </div>
+
+        <div class="space-y-3" id="whoOptionsContainer"></div>
+      </div>
+
+      <!-- VIEW 4: GAME 2 (RECONSTRUCT MY HOME) -->
+      <div id="viewHomeGame" class="space-y-6 max-w-xl mx-auto hidden">
+        <div class="flex items-center justify-between">
+          <button onclick="switchTab('activities')" class="text-slate-500 hover:text-slate-800 text-xs font-bold flex items-center gap-1.5">
+            <i class="fa-solid fa-arrow-left"></i> Exit Game
+          </button>
+          <span class="text-xs font-bold text-indigo-700 bg-indigo-50 px-3 py-1 rounded-full" id="homeProgress">1 / 3</span>
+        </div>
+
+        <div class="bg-amber-50 border border-amber-200 rounded-3xl p-5 text-center">
+          <span class="text-[10px] font-extrabold uppercase tracking-widest text-amber-700">Memory Quest</span>
+          <p id="homeQuestText" class="text-sm font-bold text-amber-900 mt-1">"Where did Grandpa usually sit by the window?"</p>
+        </div>
+
+        <div id="homeFeedback" class="text-xs font-semibold p-3.5 rounded-2xl bg-purple-50 border border-purple-200 text-purple-900 hidden"></div>
+
+        <div class="grid grid-cols-2 gap-4" id="homeItemsGrid"></div>
+      </div>
+
+      <!-- VIEW 5: GAME 3 (COMPLETE MY STORY) -->
+      <div id="viewStoryGame" class="space-y-6 max-w-xl mx-auto hidden">
+        <div class="flex items-center justify-between">
+          <button onclick="switchTab('activities')" class="text-slate-500 hover:text-slate-800 text-xs font-bold flex items-center gap-1.5">
+            <i class="fa-solid fa-arrow-left"></i> Exit Game
+          </button>
+          <span class="text-xs font-bold text-rose-700 bg-rose-50 px-3 py-1 rounded-full" id="storyProgress">1 / 2</span>
+        </div>
+
+        <div class="bg-white rounded-3xl p-8 border border-purple-100 shadow-sm text-center">
+          <span class="text-[10px] font-extrabold uppercase tracking-widest text-rose-600 bg-rose-50 px-3 py-1 rounded-full">Story Memory</span>
+          <p id="storyLeadText" class="text-base font-bold text-slate-800 mt-4 leading-relaxed"></p>
+          
+          <button onclick="speakStoryHint()" class="mt-3 text-purple-700 bg-purple-50 hover:bg-purple-100 px-4 py-1.5 rounded-full text-xs font-semibold inline-flex items-center gap-2">
+            <i class="fa-solid fa-volume-high text-xs"></i>
+            <span>Listen Story</span>
+          </button>
+
+          <div id="storyFeedbackBox" class="mt-4 p-3 rounded-2xl text-xs font-semibold hidden"></div>
+        </div>
+
+        <div class="space-y-2.5" id="storyOptionsContainer"></div>
+      </div>
+
+      <!-- VIEW 6: REMINDERS -->
+      <div id="viewReminders" class="space-y-6 max-w-2xl mx-auto hidden">
+        <div class="flex items-center space-x-3">
+          <button onclick="switchTab('home')" class="text-slate-400 hover:text-slate-700 p-2 text-sm"><i class="fa-solid fa-arrow-left"></i></button>
+          <div>
+            <h2 class="text-2xl font-black text-slate-900">Today's Care Routine & Checklist</h2>
+            <p class="text-xs text-slate-500">Track medication, hydration, and appointments.</p>
+          </div>
+        </div>
+        <div class="bg-white rounded-3xl p-6 border border-purple-100 shadow-xs space-y-3" id="checklistContainerFull"></div>
+      </div>
+
+    </main>
+
+    <!-- Right Sidebar Status -->
+    <aside class="w-80 bg-white border-l border-purple-100 p-6 flex flex-col justify-between hidden xl:flex">
+      <div class="space-y-6">
+        <div>
+          <h3 class="text-sm font-black text-slate-900">Patient Details</h3>
+          <p class="text-xs text-slate-400">Ama (Age 74) · Care Companion</p>
+        </div>
+
+        <div class="bg-purple-50/60 rounded-2xl p-4 border border-purple-100 space-y-3">
+          <div class="flex justify-between items-center">
+            <span class="text-xs font-bold text-slate-700">Today's Activity</span>
+            <span class="text-xs font-black text-purple-700">4m 57s</span>
+          </div>
+          <div class="w-full bg-purple-200 h-2 rounded-full overflow-hidden">
+            <div class="bg-[#5C3B89] h-full w-[100%]"></div>
+          </div>
+          <p class="text-[11px] text-emerald-600 font-bold">100% daily goal achieved!</p>
+        </div>
+
+        <div>
+          <div class="flex justify-between items-center mb-2">
+            <h4 class="text-xs font-bold text-slate-900">Today's Quick Checklist</h4>
+            <button onclick="switchTab('reminders')" class="text-[10px] text-purple-700 font-bold hover:underline">View All</button>
+          </div>
+          <div class="space-y-2" id="checklistQuick"></div>
+        </div>
+      </div>
+
+      <div class="pt-4 border-t border-slate-100">
+        <button onclick="speakText('Calling caregiver Rohan and nursing staff.')" class="w-full bg-rose-50 hover:bg-rose-100 text-rose-700 font-bold py-3 rounded-2xl text-xs border border-rose-200 transition flex items-center justify-center space-x-2">
+          <i class="fa-solid fa-phone"></i>
+          <span>Call Caregiver</span>
+        </button>
+      </div>
+    </aside>
+
+  </div>
+
+  <script src="/static/js/main.js"></script>
+</body>
+</html>
